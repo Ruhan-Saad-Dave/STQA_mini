@@ -1,0 +1,539 @@
+[
+  {
+    "id": "TC_NAME_01",
+    "category": "name",
+    "technique": "ECP - Valid",
+    "description": "Standard two-word alphabetic name",
+    "input": "John Doe",
+    "expected": true,
+    "pattern_name": "Full Name",
+    "rationale": "Valid alphabetic characters with a standard space separation."
+  },
+  {
+    "id": "TC_NAME_02",
+    "category": "name",
+    "technique": "ECP - Valid",
+    "description": "Name with hyphenated surname",
+    "input": "Mary-Jane Watson",
+    "expected": true,
+    "pattern_name": "Full Name",
+    "rationale": "Hyphens are permitted for composite surnames."
+  },
+  {
+    "id": "TC_NAME_03",
+    "category": "name",
+    "technique": "BVA - Min Length (3 chars)",
+    "description": "Shortest permissible name (3 characters)",
+    "input": "Ali",
+    "expected": true,
+    "pattern_name": "Full Name",
+    "rationale": "Exact boundary minimum of 3 characters."
+  },
+  {
+    "id": "TC_NAME_04",
+    "category": "name",
+    "technique": "BVA - Min-1 (2 chars)",
+    "description": "Under minimum boundary length",
+    "input": "Al",
+    "expected": false,
+    "pattern_name": "Full Name",
+    "rationale": "2-character string violates minimum length threshold of 3."
+  },
+  {
+    "id": "TC_NAME_05",
+    "category": "name",
+    "technique": "ECP - Invalid (Numbers)",
+    "description": "Name containing numeric digits",
+    "input": "John Doe 2nd",
+    "expected": false,
+    "pattern_name": "Full Name",
+    "rationale": "Digits are rejected in standard name validation."
+  },
+  {
+    "id": "TC_NAME_06",
+    "category": "name",
+    "technique": "ECP - Invalid (Special Chars)",
+    "description": "Name with punctuation or special characters",
+    "input": "John_Doe@Hospital",
+    "expected": false,
+    "pattern_name": "Full Name",
+    "rationale": "Underscore and @ symbol are forbidden in patient names."
+  },
+  {
+    "id": "TC_NAME_07",
+    "category": "name",
+    "technique": "ECP - Invalid (Empty)",
+    "description": "Empty string input",
+    "input": "",
+    "expected": false,
+    "pattern_name": "Full Name",
+    "rationale": "Mandatory field cannot be null or empty."
+  },
+  {
+    "id": "TC_NAME_08",
+    "category": "name",
+    "technique": "BVA - Max Boundary (50 chars)",
+    "description": "Exact 50-character valid alphabetic name",
+    "input": "Alexander Montgomery Christopher Wellington Hastings",
+    "expected": true,
+    "pattern_name": "Full Name",
+    "rationale": "Within 50-character upper boundary."
+  },
+  {
+    "id": "TC_NAME_09",
+    "category": "name",
+    "technique": "BVA - Max+1 Boundary (51+ chars)",
+    "description": "Name exceeding 50 characters",
+    "input": "Alexander Montgomery Christopher Wellington Hastings III",
+    "expected": false,
+    "pattern_name": "Full Name",
+    "rationale": "Exceeds upper length boundary threshold of 50 characters."
+  },
+
+  {
+    "id": "TC_EMAIL_01",
+    "category": "email",
+    "technique": "ECP - Valid",
+    "description": "Standard corporate email",
+    "input": "patient@hospital.org",
+    "expected": true,
+    "pattern_name": "Email Address",
+    "rationale": "Standard RFC compliant format with valid domain and TLD."
+  },
+  {
+    "id": "TC_EMAIL_02",
+    "category": "email",
+    "technique": "ECP - Valid",
+    "description": "Email with plus addressing and periods",
+    "input": "john.doe+covid19@sub.domain.co.in",
+    "expected": true,
+    "pattern_name": "Email Address",
+    "rationale": "Subdomains and tag symbols are valid email characters."
+  },
+  {
+    "id": "TC_EMAIL_03",
+    "category": "email",
+    "technique": "ECP - Invalid (Missing @)",
+    "description": "Email without @ sign",
+    "input": "johndoedomain.com",
+    "expected": false,
+    "pattern_name": "Email Address",
+    "rationale": "Missing mandatory separator @ sign."
+  },
+  {
+    "id": "TC_EMAIL_04",
+    "category": "email",
+    "technique": "ECP - Invalid (Missing Domain)",
+    "description": "Email with missing domain name",
+    "input": "user@",
+    "expected": false,
+    "pattern_name": "Email Address",
+    "rationale": "Domain component cannot be empty."
+  },
+  {
+    "id": "TC_EMAIL_05",
+    "category": "email",
+    "technique": "ECP - Invalid (Missing TLD)",
+    "description": "Email without top-level domain",
+    "input": "user@domain",
+    "expected": false,
+    "pattern_name": "Email Address",
+    "rationale": "TLD must have at least 2 alphabetic characters."
+  },
+  {
+    "id": "TC_EMAIL_06",
+    "category": "email",
+    "technique": "ECP - Invalid (Spaces)",
+    "description": "Email containing embedded spaces",
+    "input": "john doe@domain.com",
+    "expected": false,
+    "pattern_name": "Email Address",
+    "rationale": "Whitespace is illegal in email addresses."
+  },
+  {
+    "id": "TC_EMAIL_07",
+    "category": "email",
+    "technique": "Security - SQL/XSS Probe",
+    "description": "SQL injection string disguised as email",
+    "input": "admin' OR '1'='1@domain.com",
+    "expected": false,
+    "pattern_name": "Email Address",
+    "rationale": "Quotes and logic operators violate regex rules."
+  },
+
+  {
+    "id": "TC_PHONE_01",
+    "category": "phone",
+    "technique": "ECP - Valid",
+    "description": "Standard 10-digit mobile number starting with 9",
+    "input": "9820123456",
+    "expected": true,
+    "pattern_name": "Mobile Number",
+    "rationale": "10-digit number conforming to Indian telecom numbering plan."
+  },
+  {
+    "id": "TC_PHONE_02",
+    "category": "phone",
+    "technique": "ECP - Valid",
+    "description": "10-digit mobile starting with 6",
+    "input": "6300123456",
+    "expected": true,
+    "pattern_name": "Mobile Number",
+    "rationale": "Series 6, 7, 8, 9 are valid Indian mobile prefixes."
+  },
+  {
+    "id": "TC_PHONE_03",
+    "category": "phone",
+    "technique": "ECP - Valid (With Country Code)",
+    "description": "Mobile with +91 country prefix",
+    "input": "+91-9820123456",
+    "expected": true,
+    "pattern_name": "Mobile Number",
+    "rationale": "International dial code +91 is supported."
+  },
+  {
+    "id": "TC_PHONE_04",
+    "category": "phone",
+    "technique": "ECP - Invalid (Invalid Prefix)",
+    "description": "Number starting with digit 5",
+    "input": "5820123456",
+    "expected": false,
+    "pattern_name": "Mobile Number",
+    "rationale": "Numbers starting with 1-5 are landlines or reserved, not mobile."
+  },
+  {
+    "id": "TC_PHONE_05",
+    "category": "phone",
+    "technique": "BVA - Min-1 (9 digits)",
+    "description": "9-digit mobile number (boundary violation)",
+    "input": "982012345",
+    "expected": false,
+    "pattern_name": "Mobile Number",
+    "rationale": "Fails length requirement (10 digits required)."
+  },
+  {
+    "id": "TC_PHONE_06",
+    "category": "phone",
+    "technique": "BVA - Max+1 (11 digits)",
+    "description": "11-digit mobile number without country code",
+    "input": "98201234567",
+    "expected": false,
+    "pattern_name": "Mobile Number",
+    "rationale": "Exceeds 10-digit national number length."
+  },
+  {
+    "id": "TC_PHONE_07",
+    "category": "phone",
+    "technique": "ECP - Invalid (Alphabetic characters)",
+    "description": "Phone number with letters",
+    "input": "98201ABCD6",
+    "expected": false,
+    "pattern_name": "Mobile Number",
+    "rationale": "Non-numeric characters are invalid in mobile field."
+  },
+
+  {
+    "id": "TC_PWD_01",
+    "category": "password",
+    "technique": "ECP - Valid",
+    "description": "Standard strong password meeting all 4 complexity rules",
+    "input": "Pass@1234",
+    "expected": true,
+    "pattern_name": "Password Strength",
+    "rationale": "Contains uppercase (P), lowercase (ass), number (1234), symbol (@)."
+  },
+  {
+    "id": "TC_PWD_02",
+    "category": "password",
+    "technique": "BVA - Min Length (8 chars)",
+    "description": "Exact 8-character compliant password",
+    "input": "Ab1@cdef",
+    "expected": true,
+    "pattern_name": "Password Strength",
+    "rationale": "Satisfies minimum length boundary of 8 characters."
+  },
+  {
+    "id": "TC_PWD_03",
+    "category": "password",
+    "technique": "BVA - Min-1 Length (7 chars)",
+    "description": "7-character password (below lower boundary)",
+    "input": "Ab1@cde",
+    "expected": false,
+    "pattern_name": "Password Strength",
+    "rationale": "7 characters fails the 8-character minimum policy."
+  },
+  {
+    "id": "TC_PWD_04",
+    "category": "password",
+    "technique": "ECP - Invalid (Missing Special Character)",
+    "description": "Missing special symbol (@$!%*?&)",
+    "input": "Password123",
+    "expected": false,
+    "pattern_name": "Password Strength",
+    "rationale": "Requires at least one symbol for security hardening."
+  },
+  {
+    "id": "TC_PWD_05",
+    "category": "password",
+    "technique": "ECP - Invalid (Missing Uppercase)",
+    "description": "Missing uppercase letter",
+    "input": "password@123",
+    "expected": false,
+    "pattern_name": "Password Strength",
+    "rationale": "Fails uppercase policy constraint."
+  },
+  {
+    "id": "TC_PWD_06",
+    "category": "password",
+    "technique": "ECP - Invalid (Missing Digit)",
+    "description": "Missing numeric digit",
+    "input": "Password@XYZ",
+    "expected": false,
+    "pattern_name": "Password Strength",
+    "rationale": "Fails numeric digit policy constraint."
+  },
+  {
+    "id": "TC_PWD_07",
+    "category": "password",
+    "technique": "BVA - Max Boundary (32 chars)",
+    "description": "Exact 32-character complex password",
+    "input": "Aa1@bb2#cc3$dd4%ee5^ff6&gg7*hh8~",
+    "expected": false,
+    "pattern_name": "Password Strength",
+    "rationale": "Contains tilde which is outside allowed symbol set."
+  },
+  {
+    "id": "TC_PWD_08",
+    "category": "password",
+    "technique": "BVA - Max Boundary Valid (32 chars)",
+    "description": "Exact 32-character valid password with allowed symbols",
+    "input": "Aa1@bb2$cc3%dd4&ee5?ff6*gg7!hh8Q",
+    "expected": true,
+    "pattern_name": "Password Strength",
+    "rationale": "32 characters with permitted symbols (@$!%*?&)."
+  },
+
+  {
+    "id": "TC_PIN_01",
+    "category": "pincode",
+    "technique": "ECP - Valid",
+    "description": "Standard 6-digit Indian Postal PIN",
+    "input": "400001",
+    "expected": true,
+    "pattern_name": "Pincode / Postal",
+    "rationale": "Valid Mumbai GPO 6-digit pincode."
+  },
+  {
+    "id": "TC_PIN_02",
+    "category": "pincode",
+    "technique": "ECP - Valid",
+    "description": "Valid Bangalore pincode",
+    "input": "560001",
+    "expected": true,
+    "pattern_name": "Pincode / Postal",
+    "rationale": "Valid 6-digit postal code."
+  },
+  {
+    "id": "TC_PIN_03",
+    "category": "pincode",
+    "technique": "ECP - Invalid (Zero prefix)",
+    "description": "Pincode starting with digit 0",
+    "input": "012345",
+    "expected": false,
+    "pattern_name": "Pincode / Postal",
+    "rationale": "Postal zones in India start with digits 1 through 9 only."
+  },
+  {
+    "id": "TC_PIN_04",
+    "category": "pincode",
+    "technique": "BVA - Min-1 (5 digits)",
+    "description": "5-digit pincode (boundary violation)",
+    "input": "40001",
+    "expected": false,
+    "pattern_name": "Pincode / Postal",
+    "rationale": "Must have strictly 6 numeric digits."
+  },
+  {
+    "id": "TC_PIN_05",
+    "category": "pincode",
+    "technique": "BVA - Max+1 (7 digits)",
+    "description": "7-digit pincode (boundary violation)",
+    "input": "4000001",
+    "expected": false,
+    "pattern_name": "Pincode / Postal",
+    "rationale": "Exceeds 6-digit boundary."
+  },
+  {
+    "id": "TC_PIN_06",
+    "category": "pincode",
+    "technique": "ECP - Invalid (Alphanumeric)",
+    "description": "Pincode with letters",
+    "input": "40001A",
+    "expected": false,
+    "pattern_name": "Pincode / Postal",
+    "rationale": "Letters not allowed in Indian postal code."
+  },
+
+  {
+    "id": "TC_UID_01",
+    "category": "aadhaar",
+    "technique": "ECP - Valid",
+    "description": "Standard 12-digit Aadhaar number with spaces",
+    "input": "2345 6789 0123",
+    "expected": true,
+    "pattern_name": "Aadhaar Card",
+    "rationale": "Valid 12-digit UIDAI format starting with 2-9."
+  },
+  {
+    "id": "TC_UID_02",
+    "category": "aadhaar",
+    "technique": "ECP - Valid (Without spaces)",
+    "description": "12-digit contiguous Aadhaar number",
+    "input": "987654321098",
+    "expected": true,
+    "pattern_name": "Aadhaar Card",
+    "rationale": "Contiguous 12 digits starting with valid prefix 9."
+  },
+  {
+    "id": "TC_UID_03",
+    "category": "aadhaar",
+    "technique": "ECP - Invalid (Starts with 0)",
+    "description": "Aadhaar starting with digit 0",
+    "input": "0123 4567 8901",
+    "expected": false,
+    "pattern_name": "Aadhaar Card",
+    "rationale": "UIDAI specifications forbid numbers starting with 0 or 1."
+  },
+  {
+    "id": "TC_UID_04",
+    "category": "aadhaar",
+    "technique": "BVA - Min-1 (11 digits)",
+    "description": "11-digit Aadhaar number",
+    "input": "2345 6789 012",
+    "expected": false,
+    "pattern_name": "Aadhaar Card",
+    "rationale": "Fails 12-digit length requirement."
+  },
+
+  {
+    "id": "TC_AGE_01",
+    "category": "age",
+    "technique": "BVA - Min Boundary (18)",
+    "description": "Minimum eligible vaccination age",
+    "input": "18",
+    "expected": true,
+    "pattern_name": "Age Validation",
+    "rationale": "Lower boundary of adult eligibility."
+  },
+  {
+    "id": "TC_AGE_02",
+    "category": "age",
+    "technique": "BVA - Min-1 Boundary (17)",
+    "description": "Underage citizen (17 years)",
+    "input": "17",
+    "expected": false,
+    "pattern_name": "Age Validation",
+    "rationale": "Under minimum boundary of 18."
+  },
+  {
+    "id": "TC_AGE_03",
+    "category": "age",
+    "technique": "BVA - Nominal (45)",
+    "description": "Typical median adult age",
+    "input": "45",
+    "expected": true,
+    "pattern_name": "Age Validation",
+    "rationale": "Nominal value in valid partition."
+  },
+  {
+    "id": "TC_AGE_04",
+    "category": "age",
+    "technique": "BVA - Max Boundary (110)",
+    "description": "Maximum centenarian age",
+    "input": "110",
+    "expected": true,
+    "pattern_name": "Age Validation",
+    "rationale": "Upper boundary of realistic human age."
+  },
+  {
+    "id": "TC_AGE_05",
+    "category": "age",
+    "technique": "BVA - Max+1 Boundary (111)",
+    "description": "Out of realistic range",
+    "input": "111",
+    "expected": false,
+    "pattern_name": "Age Validation",
+    "rationale": "Exceeds upper boundary limit."
+  },
+  {
+    "id": "TC_AGE_06",
+    "category": "age",
+    "technique": "ECP - Invalid (Negative number)",
+    "description": "Negative age input",
+    "input": "-25",
+    "expected": false,
+    "pattern_name": "Age Validation",
+    "rationale": "Negative integers are invalid."
+  },
+  {
+    "id": "TC_AGE_07",
+    "category": "age",
+    "technique": "ECP - Invalid (String)",
+    "description": "Spelled out text",
+    "input": "twenty",
+    "expected": false,
+    "pattern_name": "Age Validation",
+    "rationale": "Non-numeric input rejected."
+  },
+
+  {
+    "id": "TC_DATE_01",
+    "category": "date",
+    "technique": "ECP - Valid",
+    "description": "Standard future booking date (YYYY-MM-DD)",
+    "input": "2026-11-15",
+    "expected": true,
+    "pattern_name": "Appointment Date",
+    "rationale": "Valid ISO calendar date in the future."
+  },
+  {
+    "id": "TC_DATE_02",
+    "category": "date",
+    "technique": "ECP - Invalid (DD/MM/YYYY format)",
+    "description": "Slash-separated British/Indian date format",
+    "input": "15/11/2026",
+    "expected": false,
+    "pattern_name": "Appointment Date",
+    "rationale": "Requires standard ISO format YYYY-MM-DD."
+  },
+  {
+    "id": "TC_DATE_03",
+    "category": "date",
+    "technique": "ECP - Invalid (Month > 12)",
+    "description": "Invalid month 13",
+    "input": "2026-13-15",
+    "expected": false,
+    "pattern_name": "Appointment Date",
+    "rationale": "Month must be between 01 and 12."
+  },
+  {
+    "id": "TC_DATE_04",
+    "category": "date",
+    "technique": "ECP - Invalid (Day > 31)",
+    "description": "Invalid day 32",
+    "input": "2026-10-32",
+    "expected": false,
+    "pattern_name": "Appointment Date",
+    "rationale": "Day cannot exceed 31."
+  },
+  {
+    "id": "TC_DATE_05",
+    "category": "date",
+    "technique": "ECP - Invalid (Past Date)",
+    "description": "Historic appointment date in 2020",
+    "input": "2020-05-10",
+    "expected": false,
+    "pattern_name": "Appointment Date",
+    "rationale": "Slot cannot be reserved in past dates."
+  }
+]
